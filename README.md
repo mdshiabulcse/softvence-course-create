@@ -1,66 +1,242 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📘 Course Creation System - Installation Guide
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A **Laravel-based Course Creation System** that allows users to **create, manage, and view courses** with modules and video content.  
+Includes user authentication, file uploads, AJAX form submission, and real-time validation.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🧩 Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This system provides:
+- Course creation
+- Module and video content uploads
+- AJAX-based real-time validation
+- User authentication (for instructors and students)
+- Responsive front-end using Blade and Bootstrap
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🧰 Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Before installation, ensure you have the following installed:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **PHP** 8.1 or higher
+- **Composer**
+- **MySQL** 5.7 or higher
+- **Node.js** and **NPM**
+- **Web server** (Apache or Nginx)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## ⚙️ Installation Steps
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 1. Clone the Project
+```bash
+git clone https://github.com/mdshiabulcse/softvence-course-create.git
+cd softvence-course-create
+```
 
-### Premium Partners
+### 2. Install PHP Dependencies
+```bash
+composer install
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 3. Install JavaScript Dependencies
+```bash
+npm install
+```
 
-## Contributing
+### 4. Environment Configuration
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Edit the `.env` file with your database credentials:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=course_management
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
 
-## Code of Conduct
+### 5. Database Setup
+```bash
+php artisan migrate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 6. Storage Link
+Create a symbolic link for file storage:
+```bash
+php artisan storage:link
+```
 
-## Security Vulnerabilities
+### 7. Generate Application Key
+```bash
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 8. Build Frontend Assets
+```bash
+npm run dev
+# or for production
+npm run build
+```
 
-## License
+### 9. Serve the Application
+```bash
+php artisan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Visit: [http://localhost:8000](http://localhost:8000)
+
+---
+
+## 🧑‍💻 Usage Guide
+
+### For Students/Visitors
+- **Browse Courses:** Visit the home page to see all available courses
+- **View Course Details:** Click any course to see its modules and content
+- **Register/Login:** Create an account to access more features
+
+### For Instructors
+- **Create Account:** Register as a new user
+- **Login:** Access your instructor dashboard
+- **Create Course:**
+    1. Click **"Create Course"**
+    2. Fill in course details (title, category, description)
+    3. Upload feature video and image
+    4. Add modules with content (videos, titles, lengths)
+    5. Save the course
+- **Manage Courses:** View all created courses in **"My Courses"** section
+
+---
+
+## ✨ Features for Authenticated Users
+
+- Create unlimited courses
+- Add multiple modules per course
+- Upload video content for each module
+- Real-time form validation
+- AJAX form submission
+- Responsive display
+
+---
+
+## 🗂️ File Structure
+
+```
+app/
+├── Http/Controllers/
+│   ├── CourseController.php
+│   └── HomeController.php
+├── Models/
+│   ├── Course.php
+│   ├── Module.php
+│   └── Content.php
+resources/views/
+├── layouts/
+│   └── app.blade.php
+│── create.blade.php
+│── index.blade.php
+│── show.blade.php
+│── public-index.blade.php
+├── auth/
+│   ├── login.blade.php
+│   └── register.blade.php
+└── welcome.blade.php
+```
+
+---
+
+## 🧭 API Routes
+
+| Method | Route | Description |
+|--------|--------|-------------|
+| **GET** | `/` | Welcome page |
+| **GET** | `/courses` | Public course listing |
+| **GET** | `/courses/{course}` | View specific course |
+| **GET** | `/my-courses` | User's courses (authenticated) |
+| **GET** | `/courses/create` | Create course form (authenticated) |
+| **POST** | `/courses` | Store new course (authenticated) |
+
+---
+
+## 💾 Storage Configuration
+
+The application stores files in the following directories:
+
+| Type | Path |
+|------|------|
+| Feature Videos | `storage/app/public/courses/feature-videos/` |
+| Feature Images | `storage/app/public/courses/feature-images/` |
+| Content Videos | `storage/app/public/courses/content-videos/` |
+
+---
+
+## 🔒 Security Features
+
+- CSRF protection
+- Form validation
+- File type validation
+- Authentication required for course creation
+- Secure file upload handling
+
+---
+
+## 🧩 Troubleshooting
+
+### ⚠️ Common Issues
+
+#### File Upload Errors
+- Check `storage/` directory permissions
+- Verify `upload_max_filesize` and `post_max_size` in `php.ini`
+- Ensure symbolic link exists (`php artisan storage:link`)
+
+#### Database Connection
+- Verify credentials in `.env`
+- Ensure MySQL service is running
+- Database must exist before migration
+
+#### Storage Link Issues
+```bash
+php artisan storage:link
+php artisan config:clear
+php artisan cache:clear
+```
+
+#### Permission Issues
+```bash
+chmod -R 755 storage
+chmod -R 755 bootstrap/cache
+```
+
+---
+
+## 🧱 Development Commands
+
+```bash
+# Clear cache
+php artisan config:clear
+php artisan cache:clear
+
+# Reset database
+php artisan migrate:fresh
+
+
+```
+
+---
+
+## 🏁 Conclusion
+
+You now have a fully functional **Course Management System** built with Laravel.  
+This project demonstrates **real-world Laravel application development** with CRUD, file uploads, authentication, and AJAX form handling.
+
+---
+
+**Author:** Md. Shiabul Islam  
+📧 Email: md.shiabul.cse@gmail.com  
+📍 Dhaka, Bangladesh
