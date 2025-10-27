@@ -150,6 +150,7 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 15px;
+        cursor: pointer;
     }
 
     .module-header h4 {
@@ -157,6 +158,18 @@
         font-size: 18px;
         font-weight: 600;
         margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .module-content {
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    .module-content.collapsed {
+        display: none;
     }
 
     .content-block {
@@ -172,11 +185,24 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 15px;
+        cursor: pointer;
     }
 
     .content-header strong {
         color: #1f2937;
         font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .content-body {
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    .content-body.collapsed {
+        display: none;
     }
 
     .feature-upload {
@@ -234,6 +260,14 @@
         text-decoration: none;
     }
 
+    .collapse-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .collapse-icon.rotated {
+        transform: rotate(90deg);
+    }
+
     /* Responsive design */
     @media (max-width: 768px) {
         .form-container {
@@ -272,14 +306,12 @@
         }
     }
 </style>
-
-
 @section('content')
     <div class="form-container">
         <div class="form-header">
             <h2><i class="fa fa-book"></i> Create a Course</h2>
         </div>
-        <div style="text-align: right;">
+        <div style="text-align: left;">
             <a href="{{ route('courses.index') }}" class="nav-button">
                 <i class="fa fa-list"></i> View My Courses
             </a>
@@ -320,14 +352,12 @@
             <hr>
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 style="color: #1f2937; margin: 0;">Course Modules</h3>
                 <button type="button" id="addModule" class="btn-secondary">
                     <i class="fa fa-plus"></i> Add Module
                 </button>
+                <h3 style="color: #1f2937; margin: 0;">Course Modules</h3>
             </div>
-
             <div id="modulesContainer"></div>
-
             <hr>
 
             <div class="actions">
@@ -400,16 +430,21 @@
             const moduleHTML = `
         <div class="module" data-module="${moduleCount}">
             <div class="module-header">
-                <h4>Module ${moduleCount}</h4>
+                <h4>
+                    <i class="fa fa-chevron-right collapse-icon"></i>
+                    Module ${moduleCount}
+                </h4>
                 <button type="button" class="btn-danger remove-module">
                     <i class="fa fa-times"></i> Remove Module
                 </button>
             </div>
-            <input type="text" class="module-title" name="modules[${moduleCount}][title]" placeholder="Enter module title" required>
-            <div class="contents" id="contents-${moduleCount}"></div>
-            <button type="button" class="btn-warning add-content" data-module="${moduleCount}">
-                <i class="fa fa-plus"></i> Add Content
-            </button>
+            <div class="module-content">
+                <input type="text" class="module-title" name="modules[${moduleCount}][title]" placeholder="Enter module title" required>
+                <div class="contents" id="contents-${moduleCount}"></div>
+                <button type="button" class="btn-warning add-content" data-module="${moduleCount}">
+                    <i class="fa fa-plus"></i> Add Content
+                </button>
+            </div>
         </div>`;
 
             document.getElementById('modulesContainer').insertAdjacentHTML('beforeend', moduleHTML);
@@ -423,18 +458,23 @@
             const contentHTML = `
         <div class="content-block">
             <div class="content-header">
-                <strong>Content ${contentCount + 1}</strong>
+                <strong>
+                    <i class="fa fa-chevron-right collapse-icon"></i>
+                    Content ${contentCount + 1}
+                </strong>
                 <button type="button" class="btn-danger remove-content">
                     <i class="fa fa-times"></i> Remove
                 </button>
             </div>
-            <label>Content Title *</label>
-            <input type="text" class="content-title" name="modules[${moduleId}][contents][${contentCount}][title]" placeholder="Enter content title" required>
-            <label>Upload Video File *</label>
-            <input type="file" class="content-video" name="modules[${moduleId}][contents][${contentCount}][video]" accept="video/*" required>
-            <small style="color: #6b7280; font-size: 12px;">Supported formats: MP4, AVI, MOV, WMV (Max: 100MB)</small>
-            <label>Video Length (HH:MM:SS)</label>
-            <input type="text" class="content-length" name="modules[${moduleId}][contents][${contentCount}][length]" placeholder="00:00:00">
+            <div class="content-body">
+                <label>Content Title *</label>
+                <input type="text" class="content-title" name="modules[${moduleId}][contents][${contentCount}][title]" placeholder="Enter content title" required>
+                <label>Upload Video File *</label>
+                <input type="file" class="content-video" name="modules[${moduleId}][contents][${contentCount}][video]" accept="video/*" required>
+                <small style="color: #6b7280; font-size: 12px;">Supported formats: MP4, AVI, MOV, WMV (Max: 100MB)</small>
+                <label>Video Length (HH:MM:SS)</label>
+                <input type="text" class="content-length" name="modules[${moduleId}][contents][${contentCount}][length]" placeholder="00:00:00">
+            </div>
         </div>`;
 
             contentsDiv.insertAdjacentHTML('beforeend', contentHTML);
@@ -552,7 +592,6 @@
 
         function showFieldErrors(errors) {
             clearErrors();
-
             Object.keys(errors).forEach(fieldName => {
                 const field = document.querySelector(`[name="${fieldName}"]`);
                 if (field) {
@@ -563,7 +602,6 @@
 
         function showToast(message, type = 'success') {
             const backgroundColor = type === 'success' ? '#10b981' : '#dc2626';
-
             Toastify({
                 text: message,
                 duration: 5000,
@@ -588,6 +626,23 @@
             if (e.target.closest('.add-content')) {
                 const moduleId = e.target.closest('.add-content').dataset.module;
                 addContent(moduleId);
+            }
+
+            if (e.target.closest('.module-header')) {
+                const moduleHeader = e.target.closest('.module-header');
+                const moduleContent = moduleHeader.nextElementSibling;
+                const collapseIcon = moduleHeader.querySelector('.collapse-icon');
+
+                moduleContent.classList.toggle('collapsed');
+                collapseIcon.classList.toggle('rotated');
+            }
+            if (e.target.closest('.content-header')) {
+                const contentHeader = e.target.closest('.content-header');
+                const contentBody = contentHeader.nextElementSibling;
+                const collapseIcon = contentHeader.querySelector('.collapse-icon');
+
+                contentBody.classList.toggle('collapsed');
+                collapseIcon.classList.toggle('rotated');
             }
         });
     </script>

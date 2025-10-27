@@ -1,11 +1,11 @@
-# 📘 Course Creation System - Installation Guide
+# Course Creation System - Installation Guide
 
 A **Laravel-based Course Creation System** that allows users to **create, manage, and view courses** with modules and video content.  
 Includes user authentication, file uploads, AJAX form submission, and real-time validation.
 
 ---
 
-## 🧩 Overview
+## Overview
 
 This system provides:
 - Course creation
@@ -16,7 +16,7 @@ This system provides:
 
 ---
 
-## 🧰 Prerequisites
+##  Prerequisites
 
 Before installation, ensure you have the following installed:
 
@@ -28,7 +28,7 @@ Before installation, ensure you have the following installed:
 
 ---
 
-## ⚙️ Installation Steps
+## Installation Steps
 
 ### 1. Clone the Project
 ```bash
@@ -94,7 +94,7 @@ Visit: [http://localhost:8000](http://localhost:8000)
 
 ---
 
-## 🧑‍💻 Usage Guide
+## Usage Guide
 
 ### For Students/Visitors
 - **Browse Courses:** Visit the home page to see all available courses
@@ -114,7 +114,7 @@ Visit: [http://localhost:8000](http://localhost:8000)
 
 ---
 
-## ✨ Features for Authenticated Users
+##  Features for Authenticated Users
 
 - Create unlimited courses
 - Add multiple modules per course
@@ -125,7 +125,7 @@ Visit: [http://localhost:8000](http://localhost:8000)
 
 ---
 
-## 🗂️ File Structure
+## File Structure
 
 ```
 app/
@@ -151,7 +151,7 @@ resources/views/
 
 ---
 
-## 🧭 API Routes
+## API Routes
 
 | Method | Route | Description |
 |--------|--------|-------------|
@@ -164,7 +164,7 @@ resources/views/
 
 ---
 
-## 💾 Storage Configuration
+## Storage Configuration
 
 The application stores files in the following directories:
 
@@ -176,7 +176,7 @@ The application stores files in the following directories:
 
 ---
 
-## 🔒 Security Features
+## Security Features
 
 - CSRF protection
 - Form validation
@@ -186,9 +186,9 @@ The application stores files in the following directories:
 
 ---
 
-## 🧩 Troubleshooting
+## Troubleshooting
 
-### ⚠️ Common Issues
+### Common Issues
 
 #### File Upload Errors
 - Check `storage/` directory permissions
@@ -215,7 +215,7 @@ chmod -R 755 bootstrap/cache
 
 ---
 
-## 🧱 Development Commands
+## Development Commands
 
 ```bash
 # Clear cache
@@ -230,7 +230,7 @@ php artisan migrate:fresh
 
 ---
 
-## 🏁 Conclusion
+## Conclusion
 
 You now have a fully functional **Course Management System** built with Laravel.  
 This project demonstrates **real-world Laravel application development** with CRUD, file uploads, authentication, and AJAX form handling.
